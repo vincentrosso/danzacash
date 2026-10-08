@@ -1,0 +1,27 @@
+# Ordered: first match wins. `match` is a case-insensitive regex on the bank description.
+# Optional: tags, narration, flag ("!" = needs review), sign (debit = money out, credit = money in).
+# Unmatched -> Expenses:Uncategorized (debits) / Income:Other (credits), flagged "!".
+# Vehicle purchases are flagged "!" on purpose: add `stock:`/`vin:` meta + #stk-XXXX yourself.
+
+accounts:
+  # SimpleFIN account id or name regex -> beancount account
+  "(?i)checking": Assets:Bank:Chase:Checking
+
+rules:
+  - match: "COPART|IAA[I ]|INSURANCE AUTO AUCTIONS|MANHEIM|ADESA"
+    account: Assets:Inventory:Vehicles
+    sign: debit
+    flag: "!"
+    tags: [auction]
+  - match: "CA DMV|DEPT OF MOTOR VEH"
+    account: Expenses:Licensing:DealerLicense
+    flag: "!"
+  - match: "CDTFA"
+    account: Liabilities:SalesTax:CDTFA
+    sign: debit
+  - match: "MONTHLY SERVICE FEE|WIRE FEE|SERVICE CHARGE"
+    account: Expenses:BankFees
+  - match: "GOOGLE \\*|GSUITE|GITHUB|ANTHROPIC|OPENAI|HETZNER|CLOUDFLARE|ZOHO"
+    account: Expenses:Software
+  - match: "FACEBOOK|META ADS|CRAIGSLIST|CARGURUS|AUTOTRADER"
+    account: Expenses:Advertising

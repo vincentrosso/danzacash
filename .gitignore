@@ -1,0 +1,8 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# The ledger is a separate PRIVATE repo — never commit it here.
+books/
+.DS_Store

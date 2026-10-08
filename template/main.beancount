@@ -1,0 +1,35 @@
+;; DANZA AUTO LLC — books
+option "title" "DANZA AUTO LLC"
+option "operating_currency" "USD"
+
+plugin "beancount.plugins.check_commodity"
+plugin "beancount.plugins.leafonly"
+
+2026-01-01 commodity USD
+
+include "accounts.beancount"
+include "prices.beancount"
+include "opening.beancount"
+include "ledger/*/*.beancount"
+include "vehicles/*.beancount"
+
+;; Fava saved queries
+2026-01-01 query "vehicle-cost-basis" "
+  SELECT entry_meta('stock') AS stock, sum(position) AS cost
+  WHERE account = 'Assets:Inventory:Vehicles' AND number > 0
+  GROUP BY stock ORDER BY stock"
+
+2026-01-01 query "vehicle-unsold" "
+  SELECT entry_meta('stock') AS stock, sum(position) AS on_hand
+  WHERE account = 'Assets:Inventory:Vehicles'
+  GROUP BY stock HAVING not empty(sum(position)) ORDER BY stock"
+
+2026-01-01 query "vehicle-gross-profit" "
+  SELECT entry_meta('stock') AS stock, sum(neg(position)) AS gross_profit
+  WHERE account ~ '^(Income:Sales:Vehicles|Expenses:COGS:Vehicles)$'
+  GROUP BY stock ORDER BY stock"
+
+2026-01-01 query "needs-attention" "
+  SELECT date, flag, narration, account, position
+  WHERE flag = '!' OR account ~ 'Uncategorized'
+  ORDER BY date"

@@ -1,0 +1,55 @@
+{
+ "errors": [],
+ "_request": {
+  "start": "2026-03-01",
+  "end": "2026-03-07"
+ },
+ "accounts": [
+  {
+   "id": "ACT-abc",
+   "name": "Chase Business Checking",
+   "currency": "USD",
+   "balance": "4970.00",
+   "balance-date": 1772762400,
+   "transactions": [
+    {
+     "id": "TRN-1",
+     "posted": 1772481600,
+     "amount": "9995.00",
+     "description": "ONLINE TRANSFER FROM CHK ...1234"
+    },
+    {
+     "id": "TRN-2",
+     "posted": 1772654400,
+     "amount": "-5.00",
+     "description": "SQ *COFFEE SHOP"
+    },
+    {
+     "id": "TRN-3",
+     "posted": 1772654400,
+     "amount": "-5.00",
+     "description": "SQ *COFFEE SHOP"
+    },
+    {
+     "id": "TRN-4",
+     "posted": 1772654400,
+     "amount": "-5000.00",
+     "description": "COPART INC 123-456-7890 TX"
+    },
+    {
+     "id": "TRN-5",
+     "posted": 1772740800,
+     "amount": "-15.00",
+     "description": "MONTHLY SERVICE FEE"
+    },
+    {
+     "id": "TRN-P",
+     "posted": 1772827200,
+     "amount": "-99.00",
+     "description": "PENDING THING",
+     "pending": true
+    }
+   ]
+  }
+ ]
+}
