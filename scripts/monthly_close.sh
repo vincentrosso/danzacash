@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Monthly close: pull -> extract -> bean-check -> report flags -> commit (books repo).
+# Monthly close: pull -> extract (split by month) -> bean-check -> report flags -> commit (books repo).
 #   scripts/monthly_close.sh                 # previous month via SimpleFIN
 #   scripts/monthly_close.sh 2026-09         # a specific month
 #   scripts/monthly_close.sh 2026-09 ~/Downloads/Chase1234_Activity.CSV   # CSV fallback
@@ -10,8 +10,6 @@ BOOKS="${DANZA_BOOKS:-$ROOT/books}"
 export DANZA_BOOKS="$BOOKS"
 MONTH="${1:-$(date -v-1m +%Y-%m)}"
 CSV="${2:-}"
-YEAR="${MONTH%-*}"; MM="${MONTH#*-}"
-OUT="$BOOKS/ledger/$YEAR/$MM.beancount"
 cd "$ROOT"
 
 if [ -n "$CSV" ]; then
@@ -20,14 +18,7 @@ else
   SRC="$(uv run python importers/simplefin_pull.py pull --month "$MONTH" | tail -1 | awk '{print $1}')"
 fi
 
-mkdir -p "$(dirname "$OUT")"
-TMP="$(mktemp)"; trap 'rm -f "$TMP"' EXIT
-uv run python import.py extract -q -e "$BOOKS/main.beancount" "$SRC" > "$TMP"
-NEW="$(grep -cE '^ +(simplefin|chase)_id:' "$TMP" || true)"
-if [ "$NEW" -gt 0 ] || grep -q ' balance ' "$TMP"; then
-  { echo; echo ";; --- import $(date +%F) from $(basename "$SRC")"; grep -v '^;; -\*-' "$TMP"; } >> "$OUT"
-fi
-echo "new transactions: $NEW -> ${OUT#$BOOKS/}"
+uv run python scripts/extract_to_months.py "$SRC"
 
 uv run bean-check "$BOOKS/main.beancount" || { echo "bean-check FAILED — not committing" >&2; exit 1; }
 

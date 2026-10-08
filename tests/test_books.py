@@ -34,7 +34,7 @@ def load(books):
     return entries
 
 
-def extract_into(books, importer, src: Path, month_file="2026/03.beancount"):
+def extract_into(books, importer, src: Path, month_file="2026/08.beancount"):
     """Mimic monthly_close: extract against the existing ledger, append to the month file."""
     entries = load(books)
     new = importer.extract(str(src), entries)
@@ -57,12 +57,12 @@ def test_vehicle_round_trip(books):
     assert car.sale == Decimal("12000.00")
     assert car.gross_profit == Decimal("3490.00")
     assert car.on_hand == 0
-    assert car.days(dt.date(2026, 10, 1)) == 40
+    assert car.days(dt.date(2026, 10, 1)) == 43
     assert car.vin == "2T3W1RFV8JW000001"
 
 
 @pytest.mark.parametrize("make_importer,src", [
-    (lambda r: SimpleFINImporter(r), FIX / "simplefin-20260301-20260307.json"),
+    (lambda r: SimpleFINImporter(r), FIX / "simplefin-20260801-20260807.json"),
     (lambda r: ChaseCSVImporter(rules=r), FIX / "chase_sample.csv"),
 ])
 def test_import_idempotent_and_balances(books, make_importer, src):
@@ -86,9 +86,9 @@ def test_import_idempotent_and_balances(books, make_importer, src):
 
 def test_simplefin_skips_balance_for_stale_window(books, tmp_path):
     import json
-    raw = json.loads((FIX / "simplefin-20260301-20260307.json").read_text())
-    raw["_request"]["end"] = "2026-03-04"  # window ends before the balance date
-    src = tmp_path / "simplefin-20260301-20260304.json"
+    raw = json.loads((FIX / "simplefin-20260801-20260807.json").read_text())
+    raw["_request"]["end"] = "2026-08-04"  # window ends before the balance date
+    src = tmp_path / "simplefin-20260801-20260804.json"
     src.write_text(json.dumps(raw))
     out = SimpleFINImporter(Rules.load(books / "rules.yaml")).extract(str(src), [])
     assert not any(isinstance(e, data.Balance) for e in out)

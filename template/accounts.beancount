@@ -1,30 +1,30 @@
 ;; Chart of accounts — DANZA AUTO LLC (single-member)
-2026-01-01 open Assets:Bank:Chase:Checking            USD
-2026-01-01 open Assets:Inventory:Vehicles             USD
-2026-01-01 open Assets:Receivables                    USD
+2026-06-01 open Assets:Bank:Chase:Checking            USD
+2026-06-01 open Assets:Inventory:Vehicles             USD
+2026-06-01 open Assets:Receivables                    USD
 
-2026-01-01 open Liabilities:SalesTax:CDTFA            USD
-2026-01-01 open Liabilities:DMV:FeesCollected         USD
-; 2026-01-01 open Liabilities:CreditCard:Chase        USD
+2026-06-01 open Liabilities:SalesTax:CDTFA            USD
+2026-06-01 open Liabilities:DMV:FeesCollected         USD
+; 2026-06-01 open Liabilities:CreditCard:Chase        USD
 
-2026-01-01 open Equity:Members:VincentRosso:Capital   USD
-2026-01-01 open Equity:Members:VincentRosso:Draws     USD
-2026-01-01 open Equity:Opening-Balances               USD
+2026-06-01 open Equity:Members:VincentRosso:Capital   USD
+2026-06-01 open Equity:Members:VincentRosso:Draws     USD
+2026-06-01 open Equity:Opening-Balances               USD
 
-2026-01-01 open Income:Sales:Vehicles                 USD
-2026-01-01 open Income:Fees:Documentation             USD
-2026-01-01 open Income:Other                          USD
+2026-06-01 open Income:Sales:Vehicles                 USD
+2026-06-01 open Income:Fees:Documentation             USD
+2026-06-01 open Income:Other                          USD
 
-2026-01-01 open Expenses:COGS:Vehicles                USD
-2026-01-01 open Expenses:Auction:BuyerFees            USD  ; only if NOT capitalized (default: capitalize)
-2026-01-01 open Expenses:Licensing:DealerLicense      USD
-2026-01-01 open Expenses:Insurance                    USD
-2026-01-01 open Expenses:Rent                         USD
-2026-01-01 open Expenses:Utilities                    USD
-2026-01-01 open Expenses:Software                     USD
-2026-01-01 open Expenses:BankFees                     USD
-2026-01-01 open Expenses:Advertising                  USD
-2026-01-01 open Expenses:Professional:Accounting      USD
-2026-01-01 open Expenses:Professional:Legal           USD
-2026-01-01 open Expenses:Misc                         USD
-2026-01-01 open Expenses:Uncategorized                USD  ; importer default — should trend to zero
+2026-06-01 open Expenses:COGS:Vehicles                USD
+2026-06-01 open Expenses:Auction:BuyerFees            USD  ; only if NOT capitalized (default: capitalize)
+2026-06-01 open Expenses:Licensing:DealerLicense      USD
+2026-06-01 open Expenses:Insurance                    USD
+2026-06-01 open Expenses:Rent                         USD
+2026-06-01 open Expenses:Utilities                    USD
+2026-06-01 open Expenses:Software                     USD
+2026-06-01 open Expenses:BankFees                     USD
+2026-06-01 open Expenses:Advertising                  USD
+2026-06-01 open Expenses:Professional:Accounting      USD
+2026-06-01 open Expenses:Professional:Legal           USD
+2026-06-01 open Expenses:Misc                         USD
+2026-06-01 open Expenses:Uncategorized                USD  ; importer default — should trend to zero

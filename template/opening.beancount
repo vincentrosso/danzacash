@@ -1,4 +1,4 @@
-;; Opening balances as of the books start date. Fill in from the 2025-12-31 Chase statement.
-;; 2026-01-01 * "Opening balance"
+;; Opening balances as of the books start date. Fill in from the statement before the first imported txn.
+;; 2026-06-01 * "Opening balance"
 ;;   Assets:Bank:Chase:Checking        0.00 USD
 ;;   Equity:Opening-Balances

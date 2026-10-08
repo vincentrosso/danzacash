@@ -1,28 +1,28 @@
 ;; Test round trip: buy -> transport -> recon -> smog -> sell -> release basis.
-2026-02-03 custom "vehicle" "STK-0001" "2T3W1RFV8JW000001" "2018 Toyota RAV4 LE"
+2026-07-03 custom "vehicle" "STK-0001" "2T3W1RFV8JW000001" "2018 Toyota RAV4 LE"
 
-2026-02-03 * "Copart" "Lot 12345678 hammer + buyer fee" #stk-0001
+2026-07-03 * "Copart" "Lot 12345678 hammer + buyer fee" #stk-0001
   stock: "STK-0001"
   vin: "2T3W1RFV8JW000001"
   Assets:Inventory:Vehicles     6800.00 USD
   Assets:Bank:Chase:Checking   -6800.00 USD
 
-2026-02-06 * "Transporter" "Haul to lot" #stk-0001
+2026-07-06 * "Transporter" "Haul to lot" #stk-0001
   stock: "STK-0001"
   Assets:Inventory:Vehicles      450.00 USD
   Assets:Bank:Chase:Checking    -450.00 USD
 
-2026-02-12 * "Body shop" "PDR + detail" #stk-0001
+2026-07-12 * "Body shop" "PDR + detail" #stk-0001
   stock: "STK-0001"
   Assets:Inventory:Vehicles     1200.00 USD
   Assets:Bank:Chase:Checking   -1200.00 USD
 
-2026-02-14 * "Smog station" "Smog cert" #stk-0001
+2026-07-14 * "Smog station" "Smog cert" #stk-0001
   stock: "STK-0001"
   Assets:Inventory:Vehicles       60.00 USD
   Assets:Bank:Chase:Checking     -60.00 USD
 
-2026-03-15 * "Retail buyer" "Sale STK-0001" #stk-0001
+2026-08-15 * "Retail buyer" "Sale STK-0001" #stk-0001
   stock: "STK-0001"
   Assets:Bank:Chase:Checking    13700.00 USD
   Income:Sales:Vehicles        -12000.00 USD
@@ -30,7 +30,7 @@
   Liabilities:SalesTax:CDTFA    -1305.00 USD
   Liabilities:DMV:FeesCollected  -310.00 USD
 
-2026-03-15 * "Release cost basis — STK-0001" #stk-0001
+2026-08-15 * "Release cost basis — STK-0001" #stk-0001
   stock: "STK-0001"
   Expenses:COGS:Vehicles         8510.00 USD
   Assets:Inventory:Vehicles     -8510.00 USD
