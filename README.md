@@ -49,6 +49,17 @@ uv run python scripts/vehicle_report.py   # per-vehicle cost/sale/gross/days, un
 Port 5000 (the handoff default) is taken by macOS AirPlay Receiver, so Fava uses
 5050 (`FAVA_PORT`). For remote access, use Tailscale. Don't open a public port.
 
+## Hosted copy
+
+A **read-only** Fava runs at https://autoarb.ndex.us/books/. It sits behind the autoarb
+login with a stricter owner-only check (`/api/auth/check-books`, `AUTH_BOOKS_EMAILS`):
+no fleet-IP bypass, and it fails closed. Server pieces:
+
+- `fava-books.service`: runs as user `books` on 127.0.0.1:5051 with `--prefix /books --read-only`.
+- `books-pull.timer`: every 5 min, `git reset --hard origin/main` from `danza-books`, using a read-only deploy key.
+
+No SimpleFIN credential lives on the server. Edit locally and push; `monthly_close.sh` pushes for you.
+
 ## Categorization
 
 `books/rules.yaml` is an ordered list. The first regex match on the bank description

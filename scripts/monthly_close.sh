@@ -39,3 +39,8 @@ if git -C "$BOOKS" diff --cached --quiet; then
 else
   git -C "$BOOKS" commit -q -m "close $MONTH" && echo "committed: close $MONTH"
 fi
+
+# The hosted read-only copy (autoarb.ndex.us/books/) pulls origin every 5 minutes.
+if git -C "$BOOKS" remote get-url origin >/dev/null 2>&1; then
+  git -C "$BOOKS" push -q && echo "pushed (live on the server within ~5 min)"
+fi
