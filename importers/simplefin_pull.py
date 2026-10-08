@@ -27,6 +27,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from importers.common import books_dir, load_dotenv  # noqa: E402
 
 KEYCHAIN_SERVICE = "danzacash-simplefin"
+# SimpleFIN Bridge 403s urllib's default "Python-urllib/x.y" User-Agent.
+USER_AGENT = "danzacash/0.1 (+https://github.com/vincentrosso/danzacash)"
 
 
 def cache_dir() -> Path:
@@ -51,7 +53,7 @@ def access_url() -> str:
 
 def claim(setup_token: str) -> None:
     claim_url = base64.b64decode(setup_token.strip()).decode()
-    req = urllib.request.Request(claim_url, method="POST", data=b"")
+    req = urllib.request.Request(claim_url, method="POST", data=b"", headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=30) as resp:
         url = resp.read().decode().strip()
     subprocess.run(
@@ -70,7 +72,7 @@ def fetch(start: dt.date, end: dt.date) -> dict:
         "end-date": int(dt.datetime.combine(end, dt.time()).timestamp()),
     })
     url = urllib.parse.urlunsplit((parts.scheme, netloc, parts.path.rstrip("/") + "/accounts", query, ""))
-    req = urllib.request.Request(url)
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     creds = f"{urllib.parse.unquote(parts.username or '')}:{urllib.parse.unquote(parts.password or '')}"
     req.add_header("Authorization", "Basic " + base64.b64encode(creds.encode()).decode())
     with urllib.request.urlopen(req, timeout=60) as resp:
