@@ -47,7 +47,7 @@ uv run python scripts/vehicle_report.py   # per-vehicle cost/sale/gross/days, un
 ```
 
 Port 5000 (the handoff default) is taken by macOS AirPlay Receiver, so Fava uses
-5050 (`FAVA_PORT`). For remote access, use Tailscale. Don't open a public port.
+5050 (`FAVA_PORT`). Remote access goes through the hosted copy below, never a public port.
 
 ## Hosted copy
 
